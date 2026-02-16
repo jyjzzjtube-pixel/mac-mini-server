@@ -6,6 +6,7 @@ import DriveManager from './pages/DriveManager';
 import KakaoManager from './pages/KakaoManager';
 import Scheduler from './pages/Scheduler';
 import Terminal from './pages/Terminal';
+import EmailManager from './pages/EmailManager';
 import Login from './pages/Login';
 import { useWebSocket } from './hooks/useWebSocket';
 import './App.css';
@@ -33,6 +34,7 @@ function App() {
     { path: '/', icon: '📊', label: '대시보드' },
     { path: '/ai', icon: '🤖', label: 'AI Hub' },
     { path: '/drive', icon: '📁', label: 'Drive' },
+    { path: '/email', icon: '📧', label: '이메일' },
     { path: '/kakao', icon: '💬', label: '카카오' },
     { path: '/scheduler', icon: '⏰', label: '스케줄러' },
     { path: '/terminal', icon: '💻', label: '터미널' },
@@ -85,6 +87,7 @@ function App() {
             <Route path="/" element={<Dashboard lastMessage={lastMessage} />} />
             <Route path="/ai" element={<AIHub />} />
             <Route path="/drive" element={<DriveManager />} />
+            <Route path="/email" element={<EmailManager />} />
             <Route path="/kakao" element={<KakaoManager />} />
             <Route path="/scheduler" element={<Scheduler />} />
             <Route path="/terminal" element={<Terminal />} />

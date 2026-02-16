@@ -291,35 +291,19 @@ async function cleanupTemp() {
 }
 
 async function checkEmail(config) {
-  // Gmail API를 통한 이메일 확인 (Google OAuth 필요)
-  const tokenPath = path.join(__dirname, '..', '..', 'data', 'google-token.json');
-  if (!fs.existsSync(tokenPath)) return 'Google 인증 필요';
-
+  // 이메일 자동화 서비스 호출 (요약 + 분류 + Drive 업로드)
   try {
-    const { google } = require('googleapis');
-    const { OAuth2 } = google.auth;
-    const tokens = JSON.parse(fs.readFileSync(tokenPath, 'utf8'));
+    const { checkAndProcessEmails } = require('./emailService');
+    const result = await checkAndProcessEmails();
 
-    const oauth2 = new OAuth2(
-      process.env.GOOGLE_CLIENT_ID,
-      process.env.GOOGLE_CLIENT_SECRET,
-      process.env.GOOGLE_REDIRECT_URI
-    );
-    oauth2.setCredentials(tokens);
+    if (result.error) return `이메일 확인 실패: ${result.error}`;
+    if (result.processed === 0) return '새 이메일 없음 ✅';
 
-    const gmail = google.gmail({ version: 'v1', auth: oauth2 });
-    const resp = await gmail.users.messages.list({
-      userId: 'me',
-      q: 'is:unread',
-      maxResults: 5
-    });
+    const details = result.results?.map(r =>
+      `📧 ${r.subject} (첨부: ${r.attachments}개, Drive: ${r.driveUploads}개)`
+    ).join(', ') || '';
 
-    const unread = resp.data.messages?.length || 0;
-    if (unread > 0) {
-      global.broadcast('email-alert', { unread });
-    }
-
-    return `미읽은 이메일: ${unread}개`;
+    return `${result.processed}개 이메일 처리 완료. ${details}`;
   } catch (e) {
     return `이메일 확인 실패: ${e.message}`;
   }

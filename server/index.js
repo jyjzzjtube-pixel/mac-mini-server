@@ -21,6 +21,7 @@ const systemRouter = require('./routes/system');
 const schedulerRouter = require('./routes/scheduler');
 const authRouter = require('./routes/auth');
 const kakaoRouter = require('./routes/kakao');
+const emailRouter = require('./routes/email');
 
 // 서비스
 const { initScheduler } = require('./services/scheduler');
@@ -64,6 +65,7 @@ app.use('/api/system', systemRouter);
 app.use('/api/scheduler', schedulerRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/kakao', kakaoRouter);
+app.use('/api/email', emailRouter);
 
 // 정적 파일 (React 빌드)
 const clientBuild = path.join(__dirname, '..', 'client', 'build');
