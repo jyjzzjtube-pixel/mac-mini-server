@@ -108,7 +108,7 @@ export default function Terminal() {
   return (
     <div>
       <div className="page-header">
-        <h1 className="page-title">💻 웹 터미널</h1>
+        <h1 className="page-title">💻 터미널</h1>
         <div style={{ display: 'flex', gap: 6 }}>
           <button className="btn btn-sm btn-secondary" onClick={() => loadLogs('out')}>
             📄 서버 로그

@@ -39,7 +39,7 @@ export default function KakaoManager() {
   return (
     <div>
       <div className="page-header">
-        <h1 className="page-title">💬 카카오톡 → Drive</h1>
+        <h1 className="page-title">💬 카카오 관리</h1>
         <label className="btn btn-sm btn-primary" style={{ cursor: 'pointer' }}>
           📤 파일 업로드
           <input type="file" hidden multiple onChange={handleManualUpload} />
@@ -50,9 +50,9 @@ export default function KakaoManager() {
       <div className="card">
         <div className="card-title"><span className="icon">📋</span> 사용 방법</div>
         <div style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.8 }}>
-          <p><strong>1. 자동 수신:</strong> 카카오톡 봇이 메시지/파일을 수신하면 자동으로 AI 분석 → Drive 업로드</p>
+          <p><strong>1. 자동 수신:</strong> 카카오톡 봇이 메시지/파일을 수신하면 자동으로 AI 분석 → 드라이브 업로드</p>
           <p><strong>2. 수동 업로드:</strong> 카카오톡 대화 내보내기 파일을 위 버튼으로 업로드</p>
-          <p><strong>3. AI 분류:</strong> Gemini가 파일 내용 분석 → 카테고리별 Drive 폴더에 자동 정리</p>
+          <p><strong>3. AI 분류:</strong> Gemini가 파일 내용 분석 → 카테고리별 드라이브 폴더에 자동 정리</p>
         </div>
       </div>
 

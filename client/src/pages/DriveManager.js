@@ -138,11 +138,11 @@ export default function DriveManager() {
   if (!connected) {
     return (
       <div>
-        <h1 className="page-title" style={{ marginBottom: 20 }}>📁 Google Drive</h1>
+        <h1 className="page-title" style={{ marginBottom: 20 }}>📁 드라이브 관리</h1>
         <div className="card" style={{ textAlign: 'center', padding: 40 }}>
           <div style={{ fontSize: 48, marginBottom: 16 }}>🔗</div>
           <h2 style={{ fontSize: 18, marginBottom: 8, color: 'var(--text-primary)' }}>
-            Google Drive 연결 필요
+            구글 드라이브 연결 필요
           </h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: 20, fontSize: 13 }}>
             파일 동기화 및 AI 분류를 위해 Google 계정을 연결해주세요.
@@ -158,7 +158,7 @@ export default function DriveManager() {
   return (
     <div>
       <div className="page-header">
-        <h1 className="page-title">📁 Google Drive</h1>
+        <h1 className="page-title">📁 드라이브 관리</h1>
         <div style={{ display: 'flex', gap: 8 }}>
           <label className="btn btn-sm btn-primary" style={{ cursor: 'pointer' }}>
             📤 업로드

@@ -32,8 +32,8 @@ function App() {
 
   const navItems = [
     { path: '/', icon: '📊', label: '대시보드' },
-    { path: '/ai', icon: '🤖', label: 'AI Hub' },
-    { path: '/drive', icon: '📁', label: 'Drive' },
+    { path: '/ai', icon: '🤖', label: 'AI 허브' },
+    { path: '/drive', icon: '📁', label: '드라이브 관리' },
     { path: '/email', icon: '📧', label: '이메일' },
     { path: '/kakao', icon: '💬', label: '카카오' },
     { path: '/scheduler', icon: '⏰', label: '스케줄러' },
@@ -53,7 +53,7 @@ function App() {
         {/* 사이드바 */}
         <nav className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
           <div className="sidebar-header">
-            <h2>🖥️ Mac Mini</h2>
+            <h2>🖥️ 맥미니</h2>
             <span className="version">v1.0</span>
           </div>
           <ul className="nav-list">

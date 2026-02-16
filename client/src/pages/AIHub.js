@@ -74,7 +74,7 @@ export default function AIHub() {
   return (
     <div className="chat-container">
       <div className="page-header" style={{ marginBottom: 12 }}>
-        <h1 className="page-title">🤖 AI Hub</h1>
+        <h1 className="page-title">🤖 AI 허브</h1>
         <button className="btn btn-sm btn-secondary"
           onClick={() => setShowTemplates(!showTemplates)}>
           📋 템플릿

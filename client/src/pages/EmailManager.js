@@ -64,7 +64,7 @@ export default function EmailManager() {
   return (
     <div>
       <div className="page-header">
-        <h1 className="page-title">📧 이메일 자동화</h1>
+        <h1 className="page-title">📧 이메일 관리</h1>
         <div style={{ display: 'flex', gap: 8 }}>
           <button className="btn btn-sm btn-primary" onClick={checkNow} disabled={checking}>
             {checking ? '⏳ 확인 중...' : '🔍 지금 확인'}
@@ -89,7 +89,7 @@ export default function EmailManager() {
         </div>
         <div className="stat-card">
           <div className="stat-value">{driveUploads.length}</div>
-          <div className="stat-label">Drive 업로드</div>
+          <div className="stat-label">드라이브 업로드</div>
         </div>
       </div>
 
@@ -108,7 +108,7 @@ export default function EmailManager() {
             { icon: '→', text: '' },
             { icon: '🤖', text: 'AI 분류' },
             { icon: '→', text: '' },
-            { icon: '📁', text: 'Drive 업로드' }
+            { icon: '📁', text: '드라이브 업로드' }
           ].map((item, i) => (
             <div key={i} style={{
               padding: item.text ? '8px 14px' : '0 4px',
@@ -177,10 +177,10 @@ export default function EmailManager() {
         )}
       </div>
 
-      {/* Drive 업로드 이력 */}
+      {/* 드라이브 업로드 이력 */}
       {driveUploads.length > 0 && (
         <div className="card">
-          <div className="card-title"><span className="icon">📁</span> Drive 자동 업로드 이력</div>
+          <div className="card-title"><span className="icon">📁</span> 드라이브 자동 업로드 이력</div>
           <div className="table-wrap">
             <table>
               <thead><tr><th>파일명</th><th>카테고리</th><th>폴더</th><th>시간</th></tr></thead>

@@ -87,7 +87,7 @@ export default function Scheduler() {
   };
 
   const typeLabels = {
-    'drive-sync': '📁 Drive 동기화',
+    'drive-sync': '📁 드라이브 동기화',
     'backup': '💾 백업',
     'ai-report': '🤖 AI 리포트',
     'health-check': '💚 헬스체크',
