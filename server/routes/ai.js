@@ -1,5 +1,5 @@
 /**
- * AI Hub 라우터 - Claude / Gemini 전환 + 프롬프트 템플릿
+ * AI Hub 라우터 - Claude / Gemini / Perplexity 전환 + 프롬프트 템플릿
  */
 const express = require('express');
 const router = express.Router();
@@ -46,6 +46,8 @@ router.post('/chat', async (req, res) => {
     let result;
     if (model === 'claude') {
       result = await callClaude(message, history, systemPrompt);
+    } else if (model === 'perplexity') {
+      result = await callPerplexity(message, history, systemPrompt);
     } else {
       result = await callGemini(message, history, systemPrompt);
     }
@@ -111,6 +113,26 @@ router.post('/analyze-file', async (req, res) => {
     const result = await callGemini(prompt, [], '문서 분석 전문가입니다.');
     res.json({ success: true, analysis: result });
   } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/**
+ * POST /api/ai/perplexity - Perplexity AI 검색 (실시간 웹 검색 기반 답변)
+ */
+router.post('/perplexity', async (req, res) => {
+  try {
+    const { message, history = [], systemPrompt = '한국어로 답변해주세요. 정확한 출처와 함께 최신 정보를 제공해주세요.' } = req.body;
+
+    if (!message) return res.status(400).json({ error: '메시지를 입력하세요' });
+
+    const result = await callPerplexity(message, history, systemPrompt);
+
+    global.broadcast('ai-response', { model: 'perplexity', messageLength: result.length });
+
+    res.json({ success: true, model: 'perplexity', response: result });
+  } catch (err) {
+    console.error('[Perplexity] 오류:', err.message);
     res.status(500).json({ error: err.message });
   }
 });
@@ -184,6 +206,44 @@ async function callClaude(message, history, systemPrompt) {
   });
 
   return resp.data?.content?.[0]?.text || '';
+}
+
+async function callPerplexity(message, history, systemPrompt) {
+  const key = process.env.PERPLEXITY_API_KEY;
+  if (!key) throw new Error('PERPLEXITY_API_KEY 미설정');
+
+  const messages = [];
+
+  // 시스템 프롬프트
+  if (systemPrompt) {
+    messages.push({ role: 'system', content: systemPrompt });
+  }
+
+  // 히스토리 변환
+  history.forEach(h => {
+    messages.push({ role: h.role, content: h.content });
+  });
+
+  messages.push({ role: 'user', content: message });
+
+  const body = {
+    model: 'sonar',
+    messages,
+    max_tokens: 4096,
+    temperature: 0.2
+  };
+
+  const resp = await axios.post('https://api.perplexity.ai/chat/completions', body, {
+    headers: {
+      'Authorization': `Bearer ${key}`,
+      'Content-Type': 'application/json'
+    },
+    timeout: 60000
+  });
+
+  const choice = resp.data?.choices?.[0];
+  if (!choice) throw new Error('Perplexity 응답 없음');
+  return choice.message?.content || '';
 }
 
 module.exports = router;
